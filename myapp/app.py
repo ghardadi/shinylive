@@ -1,6 +1,6 @@
 # Dependencies
 from shiny import App, render, ui
-from numpy import random 
+from numpy import random
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -41,14 +41,14 @@ def sim_steps(sim_number = 10, steps = 16, type = "float"):
 # UI
 app_ui = ui.page_fluid(
         ui.layout_sidebar(
-            ui.panel_sidebar(
+            ui.sidebar(
                 ui.h2("Why normal distributions are normal"),
                 ui.input_slider("sample_size", "Sample Size", 1, 1000, 500),
                 ui.input_slider("steps", "Number of Steps", 1, 20, 16),
                 ui.input_select("step", "Step Type", {"float": "Float", "int": "Integer"}),
                 ui.input_slider("alpha", "Color Opacity", 0, 1, 0.2)
             ),
-        ui.panel_main(
+        ui.panel_absolute(
             ui.output_plot("plot"),
             ui.markdown(
         """
@@ -95,3 +95,8 @@ def server(input, output, session):
 
 
 app = App(app_ui, server)
+
+import nest_asyncio
+nest_asyncio.apply()
+
+app.run()
